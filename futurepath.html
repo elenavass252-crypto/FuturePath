@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuturePath - La tua guida per il futuro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .quote-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 40px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            margin: 30px 0;
+        }
+
+        .quote-box p {
+            font-size: 1.3em;
+            color: #555;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .mission {
+            text-align: center;
+            font-size: 1.5em;
+            color: white;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .page {
+            display: none;
+            animation: slideIn 0.5s ease-in;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .content-box h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .content-box h3 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .content-box h4 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .content-box p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .content-box ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-box li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 1.2em;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .school-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .school-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .school-details {
+            display: none;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <header>
+                <h1>FuturePath</h1>
+                <p class="subtitle">La tua guida interattiva per orientarti tra studio, carriera e mondo del lavoro.</p>
+                <div class="quote-box">
+                    <p>"Il futuro appartiene a coloro che credono nella bellezza dei propri sogni.<br>Scegli il percorso giusto e inizia a costruire il tuo domani."</p>
+                </div>
+            </header>
+
+            <div class="mission">
+                <h2>🎯 Trova il Tuo Percorso</h2>
+                <p>Strumenti e informazioni per costruire il tuo futuro, passo dopo passo.</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" onclick="navigateTo('schools')">
+                    <div class="card-icon">🎓</div>
+                    <h3>Esplora le Scuole</h3>
+                    <p>Scopri i diversi percorsi di studio superiori e trova quello giusto per te</p>
+                </div>
+
+                <div class="card" onclick="navigateTo('careers')">
+                    <div class="card-icon">💼</div>
+                    <h3>Percorsi di Carriera</h3>
+                    <p>Informati sulle facoltà universitarie e gli sbocchi lavorativi</p>
+                </div>
+
+                <div class="card" onclick="navigateTo('skills')">
+                    <div class="card-icon">🎯</div>
+                    <h3>Competenze</h3>
+                    <p>Scopri quali abilità svilupperai in ogni percorso di studi</p>
+                </div>
+
+                <div class="card" onclick="navigateTo('quiz')">
+                    <div class="card-icon">❓</div>
+                    <h3>Quiz Orientamento</h3>
+                    <p>Fai il test e scopri quale percorso è più adatto a te</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCUOLE PAGE - SOLO 3 BOTTONI -->
+        <div id="schools" class="page">
+            <button class="back-btn" onclick="navigateTo('home')">← Torna alla Home</button>
+            <div class="content-box">
+                <h2>📚 Guida ai Percorsi di Studio</h2>
+                <p style="font-size: 1.2em;">Una guida completa ai percorsi di studio delle scuole superiori per aiutarti a fare la scelta giusta per il tuo futuro.</p>
+                
+                <div class="btn-group">
+                    <button class="btn" onclick="navigateTo('licei')">Licei</button>
+                    <button class="btn" onclick="navigateTo('tecnici')">Tecnici</button>
+                    <button class="btn" onclick="navigateTo('professionali')">Professionali</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LICEI PAGE - QUI CI SONO TUTTI I LICEI -->
+        <div id="licei" class="page">
+            <button class="back-btn" onclick="navigateTo('schools')">← Torna ai Percorsi</button>
+            <div class="content-box">
+                <h2>🎨 I Licei</h2>
+                <p style="font-size: 1.1em; margin-bottom: 30px;">I licei offrono una formazione culturale ampia e approfondita, preparando gli studenti all'università e sviluppando spirito critico, capacità di analisi e metodo di studio.</p>
+                
+                <div class="school-card" onclick="toggleDetails('artistico')">
+                    <h3>🎨 Liceo Artistico</h3>
+                    <p><strong>Dai forma alla tua creatività e impara i linguaggi dell'arte.</strong></p>
+                </div>
+                <div id="artistico" class="school-details">
+                    <p>Il Liceo Artistico è il percorso per chi vuole esplorare il mondo della creatività e della progettazione, imparando a padroneggiare i linguaggi e le tecniche delle arti visive, grafiche, multimediali e del design.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È la scuola per chi ha una spiccata sensibilità estetica, ama disegnare e creare, ed è interessato a trasformare la propria creatività in una competenza progettuale. Richiede immaginazione, ma anche precisione e metodo.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Il primo biennio è comune e prevede materie come Discipline Pittoriche, Plastiche e Scultoree, Geometriche, e un Laboratorio Artistico. Dal terzo anno si sceglie un indirizzo specifico. Sono presenti anche le materie tradizionali liceali (senza latino).</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si impara a conoscere la storia dell'arte e a padroneggiare le tecniche pratiche del proprio indirizzo. Si sviluppa la capacità di elaborare un progetto creativo, dall'ideazione alla realizzazione finale, utilizzando sia strumenti tradizionali che digitali.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>È la via maestra per le Accademie di Belle Arti e le facoltà di Architettura, Design (ISIA), Beni Culturali e Ingegneria Edile. Offre sbocchi nel mondo della grafica pubblicitaria, del web design, della moda, del restauro e della produzione audiovisiva.</p>
+                    
+                    <h4>🎯 Tutti gli indirizzi</h4>
+                    <ul>
+                        <li><strong>Arti Figurative:</strong> Si concentra sulla pittura e la scultura, esplorando tecniche tradizionali e contemporanee.</li>
+                        <li><strong>Architettura e Ambiente:</strong> Insegna le basi della progettazione architettonica e urbanistica, con un focus sulla sostenibilità.</li>
+                        <li><strong>Design:</strong> Si articola in vari settori (es. moda, metalli, legno) per la progettazione di oggetti d'uso.</li>
+                        <li><strong>Audiovisivo e Multimediale:</strong> Focalizzato sulla creazione di prodotti video, animazioni e contenuti per il web.</li>
+                        <li><strong>Grafica:</strong> Insegna le tecniche per la comunicazione visiva, dall'editoria al branding, dal packaging al web design.</li>
+                        <li><strong>Scenografia:</strong> Prepara a progettare gli spazi scenici per teatro, cinema ed eventi.</li>
+                    </ul>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('classico')">
+                    <h3>🏛️ Liceo Classico</h3>
+                    <p><strong>Un ponte tra passato e futuro attraverso lo studio delle civiltà classiche.</strong></p>
+                </div>
+                <div id="classico" class="school-details">
+                    <p>Il Liceo Classico offre una solida e vasta cultura umanistica, integrata con l'insegnamento delle materie scientifiche. È la scuola ideale per chi ama leggere, scrivere e riflettere criticamente sulle grandi questioni del pensiero umano, sviluppando un eccellente metodo di studio.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È indicato per chi ha una forte curiosità per la storia, la filosofia e la letteratura, e desidera comprendere le radici culturali della società contemporanea. Richiede impegno e buone capacità di memorizzazione e di ragionamento astratto.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Le materie portanti sono Lingua e Letteratura Italiana, Lingua e Cultura Latina, e Lingua e Cultura Greca. A queste si affiancano Storia, Filosofia, Storia dell'Arte, una Lingua Straniera, Matematica, Fisica e Scienze Naturali.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si acquisisce un metodo di studio rigoroso, capacità di argomentazione e pensiero critico. Si sviluppa una notevole padronanza della lingua italiana, sia scritta che orale, e la capacità di analizzare testi complessi, cogliendone le sfumature e il contesto storico-culturale.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Offre un'eccellente preparazione per tutte le facoltà universitarie, non solo quelle umanistiche (Lettere, Giurisprudenza, Filosofia), ma anche scientifiche (Medicina, Ingegneria), grazie al metodo di studio acquisito. Sbocchi lavorativi si trovano nel giornalismo, nell'editoria, nei beni culturali e nella comunicazione.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('scienze-umane')">
+                    <h3>👥 Liceo delle Scienze Umane</h3>
+                    <p><strong>Comprendi l'uomo, la sua mente e le dinamiche della società.</strong></p>
+                </div>
+                <div id="scienze-umane" class="school-details">
+                    <p>Questo liceo approfondisce lo studio delle teorie che spiegano i comportamenti individuali e collettivi, i processi educativi e le dinamiche sociali. Fornisce gli strumenti per comprendere la complessità delle relazioni umane.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È adatto a chi si pone domande sul perché le persone agiscono in un certo modo, è interessato a capire la mente umana e le società. È per chi ha buone doti empatiche e comunicative e vuole lavorare a contatto con le persone.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>La materia caratterizzante è Scienze Umane, che include Psicologia, Sociologia, Pedagogia e Antropologia. Si studia anche Latino e una Lingua Straniera, insieme a tutte le altre materie liceali come Italiano, Storia, Filosofia e Matematica.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si acquisiscono le conoscenze per analizzare i processi formativi, le dinamiche di gruppo e i fenomeni sociali. Si impara a cogliere la diversità delle culture e a comprendere le diverse fasi dello sviluppo psicologico della persona.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Prepara ottimamente a facoltà come Psicologia, Scienze della Formazione, Sociologia, Scienze dell'Educazione e Servizio Sociale. Offre sbocchi professionali nel settore educativo, sociale, delle risorse umane e della comunicazione.</p>
+                    
+                    <h4>💼 Opzione Economico-Sociale</h4>
+                    <p>In questa opzione, lo studio del Latino è sostituito da una seconda Lingua Straniera. Si approfondiscono il Diritto e l'Economia Politica e si studiano le Scienze Umane con un taglio più orientato alla ricerca sociale e all'analisi dei fenomeni economici e giuridici contemporanei. È ideale per chi è interessato all'attualità e alle dinamiche globali.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('linguistico')">
+                    <h3>🌍 Liceo Linguistico</h3>
+                    <p><strong>Apri le porte al mondo attraverso lo studio delle lingue e culture straniere.</strong></p>
+                </div>
+                <div id="linguistico" class="school-details">
+                    <p>Il Liceo Linguistico è focalizzato sullo studio di tre lingue e culture straniere moderne. Permette di acquisire una mentalità aperta e interculturale, fondamentale in un mondo globalizzato.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È la scelta giusta per chi è affascinato dalle diverse culture, ama viaggiare e desidera comunicare con persone di altri paesi. Richiede una buona predisposizione per le lingue e capacità di memorizzazione.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Il cuore del percorso sono tre Lingue e Culture Straniere. A partire dal terzo anno, una materia non linguistica viene insegnata in una delle lingue straniere (CLIL). Si studiano inoltre Italiano, Latino (solo nel biennio), Storia, Filosofia, Matematica e Scienze.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si raggiunge una padronanza comunicativa in tre lingue (livello B2/C1). Si impara a conoscere in modo approfondito il contesto culturale, storico e letterario dei paesi di cui si studia la lingua, sviluppando capacità di analisi comparata.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Sbocchi naturali sono le facoltà di Lingue, Mediazione Linguistica, Relazioni Internazionali e Scienze del Turismo. Le competenze acquisite sono molto richieste nel commercio internazionale, nel marketing, nel turismo, nell'interpretariato e nella traduzione.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('musicale')">
+                    <h3>🎵 Liceo Musicale e Coreutico</h3>
+                    <p><strong>Trasforma la tua passione per la musica e la danza in una professione.</strong></p>
+                </div>
+                <div id="musicale" class="school-details">
+                    <p>Questo liceo permette di approfondire, a livello teorico e pratico, lo studio della musica (sezione Musicale) o della danza (sezione Coreutica), integrandolo con una solida preparazione liceale.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Si rivolge a studenti con un talento e una forte passione per la musica o la danza, che già possiedono competenze di base certificate. L'ammissione è subordinata al superamento di una prova di idoneità. Richiede dedizione, disciplina e pratica costante.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p><strong>Sezione Musicale:</strong> Esecuzione e Interpretazione (studio di due strumenti), Teoria, Analisi e Composizione, Storia della Musica, Laboratorio di Musica d'insieme.</p>
+                    <p><strong>Sezione Coreutica:</strong> Tecnica della danza classica e contemporanea, Laboratorio coreutico e coreografico, Storia della danza.</p>
+                    <p>Entrambe le sezioni includono le materie liceali tradizionali.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si acquisiscono competenze avanzate nell'esecuzione, interpretazione e composizione musicale o coreutica. Si sviluppa la capacità di leggere e analizzare criticamente un'opera musicale o un balletto, collocandoli nel loro contesto storico.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>La preparazione ideale per accedere ai Conservatori (AFAM - Alta Formazione Artistica, Musicale e Coreutica) e alle Accademie di Danza. Il diploma consente comunque l'iscrizione a qualsiasi facoltà universitaria, come il DAMS (Discipline delle Arti, della Musica e dello Spettacolo).</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('scientifico')">
+                    <h3>🔬 Liceo Scientifico</h3>
+                    <p><strong>Esplora il mondo con gli strumenti della matematica e delle scienze.</strong></p>
+                </div>
+                <div id="scientifico" class="school-details">
+                    <p>Il Liceo Scientifico fornisce una solida preparazione nelle materie scientifiche, in particolare Matematica e Fisica, bilanciandola con una buona formazione umanistica. Prepara ad affrontare le sfide della scienza e della tecnologia.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È adatto a chi è curioso verso il perché dei fenomeni naturali, ha una mente logica e razionale e si sente a proprio agio con numeri e formule. Richiede capacità di problem-solving e di ragionamento astratto.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Le materie principali sono Matematica e Fisica. Completano il quadro Scienze Naturali (Biologia, Chimica, Scienze della Terra), Lingua e Letteratura Italiana, Lingua e Cultura Latina, Storia, Filosofia, Disegno e Storia dell'Arte.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si acquisisce una profonda comprensione del metodo scientifico, la capacità di analizzare problemi complessi e di applicare modelli matematici per descrivere la realtà. Si sviluppa un approccio rigoroso e analitico allo studio.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Rappresenta la via d'accesso privilegiata per le facoltà scientifiche come Ingegneria, Matematica, Fisica, Chimica, Informatica e Medicina, ma la sua solida base culturale permette di affrontare con successo qualsiasi percorso universitario.</p>
+                    
+                    <h4>💼 Opzione Scienze Applicate</h4>
+                    <p>Questa opzione sostituisce lo studio del Latino con l'Informatica e potenzia le ore di Scienze Naturali, con un approccio più laboratoriale e pratico. È ideale per chi è interessato all'applicazione della scienza e alla tecnologia.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECNICI PAGE -->
+        <div id="tecnici" class="page">
+            <button class="back-btn" onclick="navigateTo('schools')">← Torna ai Percorsi</button>
+            <div class="content-box">
+                <h2>💻 Istituti Tecnici</h2>
+                <p style="font-size: 1.1em; margin-bottom: 30px;">Gli istituti tecnici offrono una solida base culturale scientifica e tecnologica, con una forte componente pratica. Preparano professionisti tecnici altamente richiesti dal mondo del lavoro.</p>
+                
+                <h3 style="color: #f093fb;">Settore Economico</h3>
+                
+                <div class="school-card" onclick="toggleDetails('afm')">
+                    <h3>💼 Amministrazione, Finanza e Marketing</h3>
+                    <p><strong>Gestisci aziende e comprendi i mercati nazionali e internazionali.</strong></p>
+                </div>
+                <div id="afm" class="school-details">
+                    <p>Questo indirizzo forma figure professionali in grado di comprendere il funzionamento delle imprese, dalla nascita alla gestione quotidiana, dai processi produttivi alle strategie di marketing.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È ideale per chi è interessato al mondo delle aziende, dell'economia e del commercio. Richiede capacità logiche, precisione e interesse per le dinamiche economiche nazionali e internazionali.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Oltre alle materie comuni (Italiano, Matematica, Storia, Inglese), si studiano Economia Aziendale, Diritto, Economia Politica, due Lingue Straniere e Informatica.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si acquisiscono competenze nella gestione aziendale, nella comprensione dei fenomeni economici, nella normativa civilistica e fiscale, e nell'utilizzo di strumenti informatici per la gestione delle imprese.</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Relazioni Internazionali per il Marketing:</strong> Approfondisce la gestione dei rapporti aziendali a livello internazionale.</li>
+                        <li><strong>Sistemi Informativi Aziendali:</strong> Si concentra sulle tecnologie informatiche per la gestione delle imprese.</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Sbocchi immediati come contabile, addetto amministrativo, assistente di direzione. Ottime basi per facoltà di Economia, Giurisprudenza e Scienze Politiche. Possibilità di diventare commercialista o revisore contabile dopo ulteriori studi.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('turismo')">
+                    <h3>✈️ Turismo</h3>
+                    <p><strong>Progetta esperienze e valorizza il patrimonio culturale e ambientale.</strong></p>
+                </div>
+                <div id="turismo" class="school-details">
+                    <p>Questo percorso forma professionisti in grado di operare nel settore strategico del turismo, valorizzando il patrimonio artistico e paesaggistico e gestendo imprese turistiche in un'ottica di sostenibilità e innovazione digitale.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È perfetto per chi ama viaggiare, conoscere nuove culture, è portato per le lingue straniere e ha buone doti organizzative e comunicative. Vuole trasformare la passione per il territorio in una professione.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Le materie chiave sono Discipline Turistiche e Aziendali, Geografia Turistica, Diritto e Legislazione Turistica, Arte e Territorio e ben tre Lingue Straniere. A queste si affiancano le materie di base come Italiano, Storia e Matematica.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si acquisiscono competenze nella gestione delle imprese turistiche (hotel, agenzie di viaggio), nella promozione del territorio e nell'utilizzo degli strumenti di marketing digitale. Si impara a progettare itinerari, eventi e a comunicare efficacemente in più lingue.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Il diploma permette l'accesso a tutte le facoltà universitarie, in particolare Scienze del Turismo, Economia e Lingue. Offre sbocchi lavorativi immediati come operatore in agenzie di viaggio, receptionist, guida turistica, organizzatore di eventi o addetto al marketing in strutture ricettive.</p>
+                </div>
+
+                <h3 style="color: #f093fb; margin-top: 50px;">Settore Tecnologico</h3>
+
+                <div class="school-card" onclick="toggleDetails('informatica')">
+                    <h3>💻 Informatica e Telecomunicazioni</h3>
+                    <p><strong>Sviluppa software, progetta reti e governa il mondo digitale.</strong></p>
+                </div>
+                <div id="informatica" class="school-details">
+                    <p>Questo indirizzo prepara esperti di software, reti e sistemi informatici. Forma figure professionali capaci di sviluppare applicazioni, gestire infrastrutture di rete e garantire la sicurezza dei dati, rispondendo alla crescente domanda del mercato del lavoro digitale.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È la scelta ideale per chi è appassionato di tecnologia, computer e programmazione. Richiede una mente logica, capacità di problem-solving e la curiosità di tenersi costantemente aggiornato sulle nuove tecnologie.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Le discipline centrali sono Informatica, Sistemi e Reti, Tecnologie e Progettazione di Sistemi Informatici e di Telecomunicazioni, e Gestione Progetto. L'approccio è molto pratico, con tante ore in laboratorio.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si impara a programmare in diversi linguaggi (C++, Java, Python), a progettare e gestire database, a configurare reti informatiche e a sviluppare siti web e applicazioni mobili. Si acquisiscono anche competenze sulla sicurezza informatica (cybersecurity).</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Informatica:</strong> Focus su programmazione e sviluppo software.</li>
+                        <li><strong>Telecomunicazioni:</strong> Approfondisce le reti e i sistemi di comunicazione.</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Il diploma offre ottime e immediate opportunità lavorative come programmatore, tecnico di rete, sviluppatore web o sistemista. È anche un'eccellente base per proseguire gli studi in facoltà come Ingegneria Informatica, Informatica o Sicurezza dei Sistemi Software.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('elettronica')">
+                    <h3>⚡ Elettronica ed Elettrotecnica</h3>
+                    <p><strong>Progetta circuiti, sistemi elettronici e gestisci l'energia.</strong></p>
+                </div>
+                <div id="elettronica" class="school-details">
+                    <p>Forma tecnici specializzati nella progettazione, costruzione e collaudo di sistemi elettronici ed elettrici. Un settore fondamentale per l'industria 4.0, l'automazione e l'energia rinnovabile.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi è affascinato dal funzionamento dei dispositivi elettronici, dai circuiti e dall'automazione. Richiede capacità logiche, precisione e interesse per la fisica applicata.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Elettronica, Elettrotecnica, Sistemi Automatici, Tecnologie e Progettazione di Sistemi Elettrici ed Elettronici, con molte ore di laboratorio pratico.</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Elettronica:</strong> Progettazione di circuiti e dispositivi elettronici.</li>
+                        <li><strong>Elettrotecnica:</strong> Impianti elettrici e sistemi di produzione e distribuzione dell'energia.</li>
+                        <li><strong>Automazione:</strong> Sistemi di controllo automatico per l'industria.</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Tecnico elettronico, progettista di circuiti, manutentore di impianti industriali, esperto in domotica e automazione. Ottime basi per Ingegneria Elettronica, Elettrica o dell'Automazione.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('meccanica')">
+                    <h3>⚙️ Meccanica, Meccatronica ed Energia</h3>
+                    <p><strong>Progetta macchine, sistemi industriali e soluzioni energetiche.</strong></p>
+                </div>
+                <div id="meccanica" class="school-details">
+                    <p>Prepara tecnici in grado di progettare e gestire sistemi meccanici, meccatronici ed energetici. Un settore cruciale per l'industria manifatturiera italiana.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi ama capire come funzionano le macchine, ha interesse per la progettazione industriale e vuole lavorare nel settore produttivo.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Meccanica, Disegno Tecnico (CAD), Sistemi e Automazione, Tecnologie Meccaniche di Processo e Prodotto, con forte componente laboratoriale.</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Meccanica e Meccatronica:</strong> Progettazione e produzione di sistemi meccanici.</li>
+                        <li><strong>Energia:</strong> Sistemi di produzione, trasformazione e utilizzo dell'energia.</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Disegnatore tecnico, progettista meccanico, tecnico di produzione, manutentore industriale. Preparazione per Ingegneria Meccanica, Energetica o Gestionale.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('costruzioni')">
+                    <h3>🏗️ Costruzioni, Ambiente e Territorio</h3>
+                    <p><strong>Progetta edifici, infrastrutture e gestisci il territorio.</strong></p>
+                </div>
+                <div id="costruzioni" class="school-details">
+                    <p>Forma geometri e tecnici delle costruzioni, figure professionali che progettano edifici, gestiscono cantieri e si occupano di pianificazione territoriale e sicurezza.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi è interessato all'edilizia, all'architettura e alla gestione del territorio. Richiede capacità spaziali, precisione e senso pratico.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Progettazione, Costruzioni e Impianti, Topografia, Gestione del Cantiere e Sicurezza, Estimo (valutazione immobiliare), con attività in laboratorio e in campo.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Disegno tecnico con software CAD, progettazione di edifici, rilievi topografici, calcolo strutturale, sicurezza nei cantieri, valutazione immobiliare e gestione del territorio.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Geometra (dopo praticantato ed esame di stato), tecnico di cantiere, disegnatore CAD, tecnico della sicurezza. Preparazione per Ingegneria Civile, Architettura o Pianificazione Territoriale.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('chimica')">
+                    <h3>🧪 Chimica, Materiali e Biotecnologie</h3>
+                    <p><strong>Scopri il mondo invisibile delle molecole e delle biotecnologie.</strong></p>
+                </div>
+                <div id="chimica" class="school-details">
+                    <p>Forma tecnici specializzati nei processi chimici, nella produzione di materiali innovativi e nelle biotecnologie. Settori in forte espansione legati a farmaceutica, ambiente e industria alimentare.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi è curioso verso i fenomeni chimici e biologici, ama sperimentare in laboratorio e vuole lavorare in ambito scientifico-tecnologico.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Chimica Analitica e Strumentale, Chimica Organica e Biochimica, Biologia e Microbiologia, Fisica Ambientale, con moltissime ore di laboratorio pratico.</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Chimica e Materiali:</strong> Produzione e controllo di sostanze e materiali.</li>
+                        <li><strong>Biotecnologie Ambientali:</strong> Analisi e tutela dell'ambiente.</li>
+                        <li><strong>Biotecnologie Sanitarie:</strong> Analisi biomediche e diagnostica.</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Tecnico di laboratorio chimico o biologico, analista ambientale, tecnico in aziende farmaceutiche o alimentari. Preparazione per Chimica, Biotecnologie, Farmacia o Scienze Ambientali.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('trasporti')">
+                    <h3>🚢 Trasporti e Logistica</h3>
+                    <p><strong>Gestisci il movimento di merci e persone via terra, mare e aria.</strong></p>
+                </div>
+                <div id="trasporti" class="school-details">
+                    <p>Forma tecnici specializzati nella gestione dei sistemi di trasporto e delle catene logistiche, settori strategici per l'economia globalizzata.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi è affascinato dai mezzi di trasporto, dalla logistica internazionale e dalla gestione di flussi complessi di merci e persone.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Logistica, Elettrotecnica ed Elettronica, Meccanica e Macchine, Scienze della Navigazione, Diritto dei Trasporti, con variazioni in base all'articolazione scelta.</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Costruzione del Mezzo:</strong> Progettazione e manutenzione di veicoli.</li>
+                        <li><strong>Conduzione del Mezzo:</strong> Navigazione aerea o marittima.</li>
+                        <li><strong>Logistica:</strong> Gestione delle catene di approvvigionamento.</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Responsabile logistico, ufficiale di navigazione, pilota commerciale (con ulteriori abilitazioni), tecnico nei porti o aeroporti. Preparazione per Ingegneria dei Trasporti o Economia dei Trasporti.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('agraria')">
+                    <h3>🌱 Agraria, Agroalimentare e Agroindustria</h3>
+                    <p><strong>Coltiva il futuro dell'agricoltura sostenibile e dell'alimentazione.</strong></p>
+                </div>
+                <div id="agraria" class="school-details">
+                    <p>Forma tecnici del settore agricolo, agroalimentare e forestale, con competenze su coltivazioni, allevamenti, trasformazione alimentare e gestione sostenibile delle risorse naturali.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi ama la natura, è interessato all'agricoltura innovativa, alla sostenibilità ambientale e alla produzione alimentare di qualità.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Produzioni Vegetali e Animali, Trasformazione dei Prodotti, Economia Agraria, Gestione dell'Ambiente e del Territorio, Biotecnologie Agrarie, con attività in laboratorio e in campo.</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Produzioni e Trasformazioni:</strong> Coltivazioni, allevamenti e industria alimentare.</li>
+                        <li><strong>Gestione dell'Ambiente e del Territorio:</strong> Tutela ambientale e sviluppo sostenibile.</li>
+                        <li><strong>Viticoltura ed Enologia:</strong> Produzione del vino.</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Perito agrario, tecnico in aziende agricole o alimentari, consulente agricolo, esperto in agricoltura biologica. Preparazione per Agraria, Scienze Forestali, Tecnologie Alimentari o Veterinaria.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROFESSIONALI PAGE -->
+        <div id="professionali" class="page">
+            <button class="back-btn" onclick="navigateTo('schools')">← Torna ai Percorsi</button>
+            <div class="content-box">
+                <h2>🔧 Istituti Professionali</h2>
+                <p style="font-size: 1.1em; margin-bottom: 30px;">Gli istituti professionali offrono una formazione pratica e operativa, con stage e laboratori. Preparano all'ingresso diretto nel mondo del lavoro, fornendo competenze tecniche specifiche immediatamente spendibili.</p>
+                
+                <div class="school-card" onclick="toggleDetails('enogastronomia')">
+                    <h3>🍽️ Enogastronomia e Ospitalità Alberghiera</h3>
+                    <p><strong>Trasforma la passione per il cibo e l'ospitalità in un'arte e una professione.</strong></p>
+                </div>
+                <div id="enogastronomia" class="school-details">
+                    <p>Questo percorso forma professionisti della ristorazione e dell'ospitalità alberghiera, figure ricercatissime in Italia e all'estero. Prepara chef, pasticceri, maître di sala e personale qualificato per l'accoglienza turistica, unendo la tradizione del Made in Italy con l'innovazione.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È ideale per chi ha creatività, manualità e una forte passione per la cucina o l'arte dell'accoglienza. Richiede spirito di sacrificio, capacità di lavorare in team sotto pressione e un forte orientamento al cliente.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Le materie professionalizzanti sono centrali: Scienza e Cultura dell'Alimentazione, Laboratorio di Servizi Enogastronomici (cucina, pasticceria, sala e vendita), e Diritto e Tecniche Amministrative della Struttura Ricettiva. Importante è anche lo studio di due Lingue Straniere.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si apprendono le tecniche di preparazione, cottura e presentazione dei cibi, le basi della pasticceria, l'arte del servizio di sala e la conoscenza dei vini. Si impara a gestire un'impresa ristorativa, a valorizzare i prodotti tipici e a garantire standard di igiene e sicurezza alimentare (HACCP).</p>
+                    
+                    <h4>🎯 Articolazioni</h4>
+                    <ul>
+                        <li><strong>Enogastronomia:</strong> Opzione Cucina o Prodotti Dolciari Artigianali e Industriali</li>
+                        <li><strong>Servizi di Sala e di Vendita:</strong> Arte del servizio e sommellerie</li>
+                        <li><strong>Accoglienza Turistica:</strong> Front office e gestione della reception</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Il diploma consente un rapido inserimento nel mondo del lavoro in ristoranti, hotel, pasticcerie, navi da crociera o avviando una propria attività. È possibile proseguire gli studi, ad esempio in Scienze e Tecnologie Alimentari, Dietistica o in corsi di alta formazione specializzata (es. ALMA).</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('manutenzione')">
+                    <h3>🔧 Manutenzione e Assistenza Tecnica</h3>
+                    <p><strong>Diventa l'esperto che fa funzionare il mondo della tecnologia.</strong></p>
+                </div>
+                <div id="manutenzione" class="school-details">
+                    <p>Forma tecnici specializzati nella manutenzione e riparazione di apparati tecnici, impianti e veicoli. È una figura fondamentale in ogni settore produttivo, capace di diagnosticare guasti, installare dispositivi e garantire il buon funzionamento di macchinari complessi, dall'elettronica alla meccanica.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>È la scuola per chi ha una spiccata attitudine pratica, ama smontare e capire come funzionano le cose. Richiede abilità manuale, precisione, capacità di analisi logica per individuare i problemi e trovare soluzioni efficaci.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Il percorso è molto pratico, con un gran numero di ore dedicate ai laboratori tecnologici. Le materie chiave sono Tecnologie e Tecniche di Installazione e Manutenzione, Tecnologie Elettrico-Elettroniche, e Meccaniche. Si studia anche Disegno Tecnico e si acquisiscono nozioni di logica e programmazione di base (PLC).</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Si impara a leggere disegni tecnici e schemi elettrici, a utilizzare strumenti di diagnostica, a installare e collaudare impianti (elettrici, idraulici, termici). Si acquisiscono competenze per intervenire su macchinari industriali, autoveicoli o apparati elettronici, garantendone la sicurezza e l'efficienza.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Il diploma offre eccellenti opportunità lavorative come tecnico installatore, manutentore meccanico o elettrico, collaudatore, tecnico di assistenza post-vendita o artigiano specializzato. È possibile anche proseguire gli studi, specialmente negli Istituti Tecnici Superiori (ITS) per diventare tecnico altamente specializzato, o iscriversi a facoltà come Ingegneria Meccanica o Elettronica.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('servizi-sociali')">
+                    <h3>🤝 Servizi per la Sanità e l'Assistenza Sociale</h3>
+                    <p><strong>Prenditi cura degli altri e fai la differenza nella vita delle persone.</strong></p>
+                </div>
+                <div id="servizi-sociali" class="school-details">
+                    <p>Forma operatori nel settore socio-sanitario, capaci di assistere persone in difficoltà, anziani, bambini e disabili. Un settore in crescita costante con forte domanda di personale qualificato ed empatico.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi ha sensibilità, empatia e desidera aiutare gli altri. Richiede pazienza, capacità di ascolto, equilibrio emotivo e forte motivazione verso il lavoro di cura.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Psicologia, Igiene e Cultura Medico-Sanitaria, Diritto e Legislazione Socio-Sanitaria, Tecnica Amministrativa ed Economia Sociale, Metodologie Operative, con tirocini pratici presso strutture sociosanitarie.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Tecniche di assistenza alla persona, primo soccorso, gestione di progetti socio-educativi, animazione socio-culturale, comunicazione efficace con utenti e familiari.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Operatore Socio-Sanitario (OSS con qualifica aggiuntiva), assistente in case di riposo, comunità, asili nido, centri diurni. Preparazione per Scienze Infermieristiche, Educazione Professionale, Servizio Sociale o Fisioterapia.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('servizi-commerciali')">
+                    <h3>🛍️ Servizi Commerciali</h3>
+                    <p><strong>Marketing, vendita e gestione delle relazioni commerciali.</strong></p>
+                </div>
+                <div id="servizi-commerciali" class="school-details">
+                    <p>Prepara figure professionali in grado di gestire attività commerciali, curare la comunicazione aziendale, supportare il marketing e le vendite, con particolare attenzione al digitale.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi ha buone capacità comunicative, interesse per il mondo del commercio e del marketing, e voglia di lavorare a contatto con clienti e fornitori.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Tecniche Professionali dei Servizi Commerciali, Economia Aziendale, Diritto ed Economia, Informatica, due Lingue Straniere, con project work e attività pratiche.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Tecniche di vendita, comunicazione aziendale, marketing digitale, e-commerce, gestione documentale, utilizzo di software gestionali, organizzazione di eventi promozionali.</p>
+                    
+                    <h4>🎯 Opzioni</h4>
+                    <ul>
+                        <li><strong>Promozione Commerciale e Pubblicitaria:</strong> Marketing e comunicazione</li>
+                        <li><strong>Servizi Commerciali Web:</strong> E-commerce e digital marketing</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Addetto vendite, assistente marketing, social media specialist, addetto e-commerce, segretario commerciale. Possibilità di proseguire con Economia, Marketing o Comunicazione.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('agricoltura')">
+                    <h3>🚜 Agricoltura, Sviluppo Rurale e Valorizzazione dei Prodotti</h3>
+                    <p><strong>Lavora a contatto con la natura e i prodotti della terra.</strong></p>
+                </div>
+                <div id="agricoltura" class="school-details">
+                    <p>Forma operatori agricoli qualificati nella coltivazione, allevamento, gestione aziendale agricola e valorizzazione dei prodotti del territorio.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi ama la vita all'aria aperta, ha passione per la natura, gli animali e vuole lavorare nell'agricoltura moderna e sostenibile.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Agronomia del Territorio e Ecosistemi Forestali, Agricoltura Sostenibile e Biologica, Allevamento degli Animali, Trasformazione dei Prodotti, Economia Agraria, con attività pratiche in campo e in laboratorio.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Tecniche di coltivazione e allevamento, uso di macchinari agricoli, trasformazione di prodotti alimentari, gestione sostenibile delle risorse, vendita diretta e agriturismo.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Operatore agricolo, conduttore di azienda agricola o agrituristica, addetto alla trasformazione alimentare, tecnico di fattorie didattiche. Possibilità di proseguire con Agraria o Tecnologie Alimentari.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('industria-artigianato')">
+                    <h3>⚙️ Industria e Artigianato per il Made in Italy</h3>
+                    <p><strong>Produci con le tue mani l'eccellenza italiana.</strong></p>
+                </div>
+                <div id="industria-artigianato" class="school-details">
+                    <p>Forma tecnici artigiani specializzati nelle produzioni tipiche del Made in Italy, dalla meccanica all'oreficeria, dalla moda al design.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi ha manualità, creatività e passione per la produzione artigianale e industriale italiana di qualità.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Varia in base all'indirizzo: Tecnologie Applicate ai Materiali, Laboratori Tecnologici, Progettazione e Realizzazione del Prodotto, Tecniche di Distribuzione e Marketing, con moltissime ore pratiche.</p>
+                    
+                    <h4>🎯 Indirizzi principali</h4>
+                    <ul>
+                        <li><strong>Produzioni Tessili e Sartoriali:</strong> Moda e abbigliamento</li>
+                        <li><strong>Arredi e Forniture d'Interni:</strong> Falegnameria e design</li>
+                        <li><strong>Lavorazioni Orafe:</strong> Oreficeria e gioielleria</li>
+                        <li><strong>Produzioni Industriali e Artigianali del Made in Italy:</strong> Vari settori produttivi</li>
+                    </ul>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Artigiano specializzato, operatore in piccole e medie imprese manifatturiere, tecnico di produzione. Possibilità di avviare una propria attività artigianale o proseguire con percorsi ITS o universitari in Design, Tecnologie Industriali.</p>
+                </div>
+
+                <div class="school-card" onclick="toggleDetails('pesca')">
+                    <h3>🎣 Pesca Commerciale e Produzioni Ittiche</h3>
+                    <p><strong>Il mare come professione e risorsa sostenibile.</strong></p>
+                </div>
+                <div id="pesca" class="school-details">
+                    <p>Forma operatori specializzati nella pesca professionale, nell'acquacoltura e nella lavorazione dei prodotti ittici, con attenzione alla sostenibilità delle risorse marine.</p>
+                    
+                    <h4>👥 A chi è rivolto</h4>
+                    <p>Per chi ama il mare, ha spirito di avventura e vuole lavorare nel settore della pesca e dell'acquacoltura. Richiede resistenza fisica e adattabilità.</p>
+                    
+                    <h4>📖 Quali materie si studiano</h4>
+                    <p>Biologia Marina, Tecniche di Pesca, Acquacoltura, Nautica e Navigazione, Legislazione della Pesca, Trasformazione dei Prodotti Ittici, con esercitazioni pratiche in mare e in impianti di acquacoltura.</p>
+                    
+                    <h4>💡 Cosa si impara</h4>
+                    <p>Tecniche di pesca sostenibile, conduzione di imbarcazioni da pesca, gestione di impianti di acquacoltura, trattamento e conservazione del pesce, normative del settore ittico.</p>
+                    
+                    <h4>🚀 Prospettive future</h4>
+                    <p>Pescatore professionista, tecnico di acquacoltura, operatore in cooperative di pesca, addetto alla commercializzazione dei prodotti ittici. Possibilità di proseguire con Scienze Ambientali Marine o Tecnologie Alimentari.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAREERS PAGE -->
+        <div id="careers" class="page">
+            <button class="back-btn" onclick="navigateTo('home')">← Torna alla Home</button>
+            <div class="content-box">
+                <h2>💼 Percorsi di Carriera</h2>
+                <p style="font-size: 1.2em; margin-bottom: 30px;">Scopri gli sbocchi lavorativi delle principali facoltà universitarie e le professioni del futuro più richieste dal mercato del lavoro.</p>
+                
+                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 30px; border-radius: 15px; margin-bottom: 40px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">📊 Le Facoltà con Maggiori Opportunità</h3>
+                    <p style="margin-bottom: 10px;">Secondo i dati AlmaLaurea 2024, le facoltà con i tassi di occupazione più alti (oltre il 90%) sono:</p>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Ingegneria:</strong> 95,6% di occupazione</li>
+                        <li><strong>Informatica e ICT:</strong> 94,2% di occupazione</li>
+                        <li><strong>Medicina e Professioni Sanitarie:</strong> 92,9% di occupazione</li>
+                        <li><strong>Architettura:</strong> 91,3% di occupazione</li>
+                        <li><strong>Economia:</strong> 89,7% di occupazione</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-bottom: 20px;">🔬 Ingegneria e Architettura</h3>
+                <div class="career-section">
+                    <p>Queste facoltà offrono una formazione tecnica e progettuale molto richiesta, aprendo le porte a professioni innovative e ben retribuite in settori come l'AI, la robotica, la sostenibilità e la bioingegneria.</p>
+                    
+                    <h4 style="color: #667eea; margin-top: 25px;">Principali Sbocchi Lavorativi:</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>💻 Ingegnere Informatico / Software Engineer</h4>
+                            <p>Progetta e sviluppa software, applicazioni e sistemi informatici. Lavora in aziende tech, startup, multinazionali o come freelance.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €50.000 (junior), €50.000 - €80.000+ (senior)</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🤖 Ingegnere AI / Machine Learning Engineer</h4>
+                            <p>Sviluppa sistemi di intelligenza artificiale e algoritmi di machine learning. Settore in forte espansione con altissima domanda.</p>
+                            <p><strong>Stipendio medio:</strong> €40.000 - €70.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🦾 Ingegnere Robotico</h4>
+                            <p>Progetta e programma robot per industria, medicina, esplorazione. Richiede competenze in meccanica, elettronica e informatica.</p>
+                            <p><strong>Stipendio medio:</strong> €35.000 - €60.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🏗️ Ingegnere Civile / Strutturale</h4>
+                            <p>Progetta edifici, ponti, infrastrutture. Lavora in studi di progettazione, imprese di costruzione o enti pubblici.</p>
+                            <p><strong>Stipendio medio:</strong> €28.000 - €45.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>⚡ Energy Manager / Ingegnere Energetico</h4>
+                            <p>Gestisce l'efficienza energetica di edifici e impianti, progetta sistemi di energia rinnovabile. Settore green in crescita.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🏥 Ingegnere Biomedico</h4>
+                            <p>Progetta dispositivi medici, protesi, apparecchiature diagnostiche. Lavora in ospedali, aziende biomedicali o centri di ricerca.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €50.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>☁️ Architetto di Sistemi Cloud / DevOps Engineer</h4>
+                            <p>Gestisce infrastrutture cloud, automatizza processi IT. Figura molto richiesta nella trasformazione digitale.</p>
+                            <p><strong>Stipendio medio:</strong> €35.000 - €65.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🏛️ Architetto</h4>
+                            <p>Progetta edifici e spazi urbani. Può lavorare come libero professionista, in studi o enti pubblici. Richiede abilitazione professionale.</p>
+                            <p><strong>Stipendio medio:</strong> €25.000 - €45.000 (varia molto)</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><strong>Nota:</strong> Le competenze ingegneristiche sono sempre più richieste anche in campi non tradizionali, come la finanza (FinTech), la sanità digitale e la consulenza strategica.</p>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-top: 50px; margin-bottom: 20px;">📚 Lettere, Filosofia e Comunicazione</h3>
+                <div class="career-section">
+                    <p>Le competenze umanistiche come il pensiero critico, la scrittura e la capacità di analisi culturale sono fondamentali nel mondo digitale per creare contenuti di valore, gestire community e definire strategie di comunicazione efficaci.</p>
+                    
+                    <h4 style="color: #667eea; margin-top: 25px;">Principali Sbocchi Lavorativi:</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>✍️ Content Writer / Content Specialist</h4>
+                            <p>Crea contenuti testuali per siti web, blog, social media, newsletter. Può specializzarsi in SEO copywriting o content marketing.</p>
+                            <p><strong>Stipendio medio:</strong> €20.000 - €35.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📱 Social Media Manager (SMM)</h4>
+                            <p>Gestisce i canali social di aziende e brand, crea strategie di comunicazione digitale, monitora engagement e community.</p>
+                            <p><strong>Stipendio medio:</strong> €22.000 - €40.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🤖 Prompt Engineer / AI Trainer</h4>
+                            <p>Nuova professione: ottimizza le istruzioni per sistemi di AI, addestra modelli linguistici. Richiede competenze linguistiche e tecniche.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📖 Specialista in Digital Humanities</h4>
+                            <p>Applica tecnologie digitali alla ricerca umanistica, gestisce archivi digitali, cura mostre virtuali e progetti culturali online.</p>
+                            <p><strong>Stipendio medio:</strong> €25.000 - €40.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>💬 UX Writer</h4>
+                            <p>Scrive testi per interfacce digitali (app, siti web), migliora l'esperienza utente attraverso la comunicazione chiara.</p>
+                            <p><strong>Stipendio medio:</strong> €28.000 - €45.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📢 Communication Specialist / PR</h4>
+                            <p>Gestisce la comunicazione aziendale, le relazioni con i media, organizza eventi e campagne di comunicazione.</p>
+                            <p><strong>Stipendio medio:</strong> €24.000 - €40.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📰 Giornalista / Editor</h4>
+                            <p>Lavora in redazioni, testate online, agenzie di stampa. Può specializzarsi in giornalismo d'inchiesta, sportivo, culturale.</p>
+                            <p><strong>Stipendio medio:</strong> €20.000 - €40.000 (molto variabile)</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><strong>Per la magistrale:</strong> Considera corsi come Digital Humanities, Comunicazione d'Impresa, Editoria e Scrittura, Marketing Digitale.</p>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-top: 50px; margin-bottom: 20px;">⚖️ Giurisprudenza e Scienze Politiche</h3>
+                <div class="career-section">
+                    <p>Il diritto e le scienze politiche si evolvono con la società, affrontando nuove sfide legate al digitale, alla privacy, all'ambiente e alla sostenibilità. Nascono così nuove figure professionali specializzate in questi ambiti.</p>
+                    
+                    <h4 style="color: #667eea; margin-top: 25px;">Principali Sbocchi Lavorativi:</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>⚖️ Avvocato</h4>
+                            <p>Professione libera che richiede abilitazione. Può specializzarsi in diritto civile, penale, amministrativo, del lavoro, societario.</p>
+                            <p><strong>Stipendio medio:</strong> Molto variabile, da €25.000 a oltre €100.000+ per professionisti affermati</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>👨‍⚖️ Magistrato</h4>
+                            <p>Giudice o Pubblico Ministero. Accesso tramite concorso pubblico molto selettivo. Carriera stabile nella magistratura.</p>
+                            <p><strong>Stipendio medio:</strong> €40.000 - €100.000+ (in base all'anzianità)</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>💻 Esperto di Diritto Digitale (Legal Tech)</h4>
+                            <p>Specialista in privacy, cybersecurity, protezione dati (GDPR), e-commerce, proprietà intellettuale online.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🌱 Giurista Ambientale / Esperto ESG</h4>
+                            <p>Consulente per normative ambientali, sostenibilità, ESG (Environmental, Social, Governance). Settore in forte crescita.</p>
+                            <p><strong>Stipendio medio:</strong> €28.000 - €50.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🤝 Corporate Social Responsibility (CSR) Manager</h4>
+                            <p>Gestisce politiche di responsabilità sociale d'impresa, sostenibilità, etica aziendale.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €50.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🔒 Data Protection Officer (DPO)</h4>
+                            <p>Responsabile della protezione dei dati aziendali, conformità GDPR, gestione privacy. Figura obbligatoria per molte aziende.</p>
+                            <p><strong>Stipendio medio:</strong> €35.000 - €60.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🏛️ Analista di Policy e Affari Pubblici</h4>
+                            <p>Lavora per istituzioni, think tank, lobby, analizza politiche pubbliche e normative.</p>
+                            <p><strong>Stipendio medio:</strong> €25.000 - €45.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📋 Notaio</h4>
+                            <p>Pubblico ufficiale che autentica atti. Accesso tramite concorso molto selettivo. Professione molto remunerativa.</p>
+                            <p><strong>Stipendio medio:</strong> €80.000 - €200.000+ (varia molto)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-top: 50px; margin-bottom: 20px;">📊 Matematica, Fisica e Statistica</h3>
+                <div class="career-section">
+                    <p>In un mondo guidato dai dati, le lauree scientifiche sono più preziose che mai. Le competenze analitiche e di problem-solving sono cruciali per professioni emergenti nell'era digitale.</p>
+                    
+                    <h4 style="color: #667eea; margin-top: 25px;">Principali Sbocchi Lavorativi:</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>📈 Data Scientist</h4>
+                            <p>Analizza grandi quantità di dati per estrarre insight, crea modelli predittivi, supporta decisioni aziendali strategiche.</p>
+                            <p><strong>Stipendio medio:</strong> €35.000 - €65.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📊 Data Analyst</h4>
+                            <p>Raccoglie, elabora e visualizza dati per supportare business intelligence e decision making.</p>
+                            <p><strong>Stipendio medio:</strong> €28.000 - €45.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>💰 Quantitative Analyst (Quant)</h4>
+                            <p>Sviluppa modelli matematici per trading, gestione del rischio finanziario. Lavora in banche d'investimento, hedge fund.</p>
+                            <p><strong>Stipendio medio:</strong> €40.000 - €80.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🛡️ Cybersecurity Analyst</h4>
+                            <p>Protegge sistemi informatici da attacchi, identifica vulnerabilità, gestisce sicurezza IT aziendale.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🔬 Ricercatore in Fisica Computazionale</h4>
+                            <p>Lavora in università, centri di ricerca (CERN, INFN), sviluppa simulazioni e modelli fisici avanzati.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €50.000 (in ricerca)</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🎲 Attuario</h4>
+                            <p>Valuta rischi finanziari per compagnie assicurative e fondi pensione. Richiede certificazione professionale.</p>
+                            <p><strong>Stipendio medio:</strong> €35.000 - €60.000+</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><strong>Nota:</strong> Il 100% dei laureati in Matematica, Fisica e Statistica trova occupazione nel lungo periodo secondo AlmaLaurea.</p>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-top: 50px; margin-bottom: 20px;">💼 Economia, Finanza e Marketing</h3>
+                <div class="career-section">
+                    <p>Le facoltà economiche preparano a comprendere i mercati globali, le strategie aziendali e i comportamenti dei consumatori. Le professioni del futuro si concentrano su e-commerce, finanza tecnologica (Fintech) e marketing basato sui dati.</p>
+                    
+                    <h4 style="color: #667eea; margin-top: 25px;">Principali Sbocchi Lavorativi:</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🛒 E-commerce Manager</h4>
+                            <p>Gestisce piattaforme di vendita online, ottimizza conversioni, coordina logistica e customer service digitale.</p>
+                            <p><strong>Stipendio medio:</strong> €28.000 - €50.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📱 Digital Marketing Manager</h4>
+                            <p>Pianifica e gestisce campagne di marketing digitale, SEO/SEM, advertising online, analisi performance.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>💳 Professionista FinTech</h4>
+                            <p>Lavora nell'innovazione finanziaria: pagamenti digitali, blockchain, criptovalute, app bancarie, lending digitale.</p>
+                            <p><strong>Stipendio medio:</strong> €35.000 - €65.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📊 Business Analyst</h4>
+                            <p>Analizza processi aziendali, identifica opportunità di miglioramento, supporta decisioni strategiche con i dati.</p>
+                            <p><strong>Stipendio medio:</strong> €28.000 - €48.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🚀 Growth Hacker</h4>
+                            <p>Figura ibrida tra marketing e sviluppo, focalizzata sulla crescita rapida di prodotti digitali tramite strategie innovative.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000+</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>💼 Consulente Aziendale / Management Consultant</h4>
+                            <p>Supporta aziende in strategie, riorganizzazioni, efficientamento. Lavora in società di consulenza o come freelance.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €60.000+ (varia molto)</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🏦 Analista Finanziario</h4>
+                            <p>Valuta investimenti, analizza mercati finanziari, prepara report per investitori. Lavora in banche, fondi, società di rating.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📈 Controller / Financial Controller</h4>
+                            <p>Monitora performance finanziarie aziendali, budget, costi, redige report direzionali.</p>
+                            <p><strong>Stipendio medio:</strong> €28.000 - €50.000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-top: 50px; margin-bottom: 20px;">🏥 Medicina e Professioni Sanitarie</h3>
+                <div class="career-section">
+                    <p>Il settore della salute è in continua trasformazione grazie alla tecnologia. Le nuove frontiere includono la telemedicina, la genomica, la sanità digitale e l'uso dell'intelligenza artificiale per diagnosi più precise e cure personalizzate.</p>
+                    
+                    <h4 style="color: #667eea; margin-top: 25px;">Principali Sbocchi Lavorativi:</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>👨‍⚕️ Medico Specialista</h4>
+                            <p>Dopo la specializzazione (4-6 anni post-laurea) si può lavorare in ospedale, clinica privata o aprire studio. Moltissime specializzazioni disponibili.</p>
+                            <p><strong>Stipendio medio:</strong> €40.000 - €100.000+ (varia moltissimo)</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>💻 Medico Specialista in Telemedicina</h4>
+                            <p>Fornisce consulenze mediche a distanza, monitora pazienti da remoto, utilizza tecnologie digitali per la salute.</p>
+                            <p><strong>Stipendio medio:</strong> €35.000 - €70.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🧬 Genetista / Consulente Genetico</h4>
+                            <p>Analizza DNA, diagnostica malattie genetiche, consiglia pazienti su rischi ereditari. Lavora in laboratori specializzati.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €55.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>📱 Digital Health Specialist</h4>
+                            <p>Gestisce app sanitarie, piattaforme di e-health, wearable per monitoraggio salute, integra tecnologia e medicina.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €50.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🔬 Bioinformatico</h4>
+                            <p>Analizza dati genomici con l'informatica, supporta ricerca medica e farmacologica. Richiede competenze in biologia e programmazione.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €50.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>👩‍⚕️ Infermiere / Advanced Practice Nurse</h4>
+                            <p>Professionista sanitario fondamentale. Gli infermieri specializzati (master) hanno maggiori autonomie e responsabilità.</p>
+                            <p><strong>Stipendio medio:</strong> €25.000 - €40.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>💊 Farmacista</h4>
+                            <p>Lavora in farmacia (territoriale o ospedaliera), industria farmaceutica, ricerca. Richiede abilitazione professionale.</p>
+                            <p><strong>Stipendio medio:</strong> €25.000 - €45.000</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🦷 Odontoiatra</h4>
+                            <p>Dentista. Può lavorare in studi privati, ospedali o aprire studio proprio. Settore libero-professionale.</p>
+                            <p><strong>Stipendio medio:</strong> €30.000 - €80.000+ (molto variabile)</p>
+                        </div>
+                        
+                        <div class="job-item">
+                            <h4>🧘 Fisioterapista</h4>
+                            <p>Riabilita pazienti con patologie motorie. Lavora in ospedali, centri riabilitativi, studi privati, squadre sportive.</p>
+                            <p><strong>Stipendio medio:</strong> €20.000 - €35.000</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><strong>Nota:</strong> Il settore sanitario ha un tasso di occupazione del 92,9% a 5 anni dalla laurea, tra i più alti in Italia.</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 30px; border-radius: 15px; margin-top: 50px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">💡 Consigli per il Successo Professionale</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Competenze trasversali:</strong> Sviluppa soft skills come problem-solving, lavoro di squadra, comunicazione</li>
+                        <li><strong>Lingue straniere:</strong> L'inglese è fondamentale, una seconda lingua è un plus</li>
+                        <li><strong>Esperienze pratiche:</strong> Stage, tirocini, progetti personali aumentano l'employability</li>
+                        <li><strong>Formazione continua:</strong> Master, certificazioni, corsi specialistici mantengono competitive le tue competenze</li>
+                        <li><strong>Networking:</strong> Costruisci relazioni professionali durante gli studi e oltre</li>
+                        <li><strong>Competenze digitali:</strong> Familiarità con strumenti digitali e AI è sempre più richiesta</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS PAGE -->
+        <div id="skills" class="page">
+            <button class="back-btn" onclick="navigateTo('home')">← Torna alla Home</button>
+            <div class="content-box">
+                <h2>🎯 Mappa le Tue Competenze</h2>
+                <p style="font-size: 1.2em; margin-bottom: 30px;">Seleziona il tuo percorso di studi per scoprire le competenze chiave che stai sviluppando e come si collegano a opportunità future.</p>
+                
+                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 30px; border-radius: 15px; margin-bottom: 40px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">💡 Perché le Competenze Sono Importanti</h3>
+                    <p style="margin-bottom: 10px;">Le competenze sono le tue capacità concrete, quello che sai fare. Ogni scuola sviluppa un mix unico di:</p>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Hard Skills:</strong> Competenze tecniche specifiche (es. programmazione, disegno tecnico, lingue)</li>
+                        <li><strong>Soft Skills:</strong> Abilità trasversali (es. problem-solving, lavoro di squadra, creatività)</li>
+                        <li><strong>Competenze Digitali:</strong> Uso di tecnologie e strumenti informatici</li>
+                        <li><strong>Competenze Metodologiche:</strong> Metodo di studio, ricerca, organizzazione</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-bottom: 30px; text-align: center;">📚 LICEI</h3>
+                
+                <div class="competenza-card" onclick="toggleDetails('comp-artistico')">
+                    <h3>🎨 Liceo Artistico</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-artistico" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🎨 Creatività e Progettazione Visiva</h4>
+                            <p>Capacità di ideare e realizzare progetti artistici originali, dal concept alla realizzazione. Sviluppo della visione estetica e della sensibilità artistica.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>💻 Competenze Tecniche</h4>
+                            <p>Padronanza di tecniche tradizionali (disegno, pittura, scultura) e digitali (Photoshop, Illustrator, CAD, modellazione 3D, video editing).</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📚 Storia dell'Arte e Senso Estetico</h4>
+                            <p>Conoscenza approfondita dei movimenti artistici, capacità di analisi critica delle opere, comprensione del contesto storico-culturale.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🎬 Progettazione Multimediale</h4>
+                            <p>Capacità di creare contenuti per diversi media (web, video, animazione), comprensione della comunicazione visiva moderna.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Design, Architettura, Grafica pubblicitaria, Web design, Moda, Cinema e animazione</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-classico')">
+                    <h3>🏛️ Liceo Classico</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-classico" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🧠 Pensiero Critico e Argomentativo</h4>
+                            <p>Capacità di analizzare situazioni complesse, costruire ragionamenti logici, argomentare in modo convincente e confutare tesi avverse.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📖 Analisi Testuale Complessa</h4>
+                            <p>Abilità nell'interpretare testi difficili, cogliere sfumature linguistiche, comprendere significati impliciti e contesti culturali.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📚 Cultura Umanistica e Storica</h4>
+                            <p>Solida conoscenza della civiltà classica, della filosofia, della letteratura. Base culturale ampia e interdisciplinare.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📝 Metodo di Studio Rigoroso</h4>
+                            <p>Eccellente organizzazione del lavoro, capacità di sintesi, memorizzazione efficace, gestione di carichi di studio elevati.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Qualsiasi facoltà universitaria, Giurisprudenza, Medicina, Lettere, Filosofia, Giornalismo</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-scienze-umane')">
+                    <h3>👥 Liceo delle Scienze Umane</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-scienze-umane" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>❤️ Empatia e Intelligenza Emotiva</h4>
+                            <p>Capacità di comprendere emozioni e bisogni altrui, gestire relazioni interpersonali, comunicare in modo efficace ed empatico.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>👥 Comprensione delle Dinamiche Sociali</h4>
+                            <p>Analisi dei fenomeni sociali, comprensione dei gruppi e delle comunità, sensibilità verso diversità culturali e sociali.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🧠 Psicologia, Pedagogia e Sociologia</h4>
+                            <p>Conoscenza dei processi mentali, delle teorie educative, dei meccanismi sociali. Base scientifica per professioni di aiuto.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🔍 Metodologia della Ricerca Sociale</h4>
+                            <p>Capacità di progettare e condurre ricerche, raccogliere e analizzare dati qualitativi, interpretare fenomeni sociali.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Psicologia, Scienze dell'Educazione, Servizio Sociale, Risorse Umane, Sociologia</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-linguistico')">
+                    <h3>🌍 Liceo Linguistico</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-linguistico" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🗣️ Competenza Multilingue (B2/C1)</h4>
+                            <p>Padronanza di tre lingue straniere a livello avanzato. Capacità di comunicare fluentemente in contesti professionali e accademici.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🌐 Comunicazione Interculturale</h4>
+                            <p>Sensibilità verso culture diverse, capacità di mediare tra contesti culturali differenti, apertura mentale e flessibilità.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📚 Analisi Letteraria Comparata</h4>
+                            <p>Capacità di confrontare opere di letterature diverse, comprendere contesti storico-culturali, analisi critica di testi stranieri.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🧠 Adattabilità e Apertura Mentale</h4>
+                            <p>Flessibilità cognitiva, capacità di cambiare prospettiva, comfort con l'ambiguità e la diversità.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Lingue, Traduzione, Relazioni Internazionali, Turismo, Marketing Internazionale, Diplomazia</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-musicale')">
+                    <h3>🎵 Liceo Musicale e Coreutico</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-musicale" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🎯 Disciplina e Pratica Costante</h4>
+                            <p>Capacità di dedicarsi con costanza agli obiettivi, gestione del tempo, perseveranza, autocontrollo e determinazione.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📖 Teoria e Storia Musicale/Coreutica</h4>
+                            <p>Conoscenza approfondita della teoria musicale, della storia della musica/danza, analisi di opere e stili.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🎭 Esecuzione e Interpretazione Artistica</h4>
+                            <p>Padronanza tecnica dello strumento/danza, capacità espressiva, interpretazione personale, performance sotto pressione.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>👥 Lavoro di Gruppo</h4>
+                            <p>Capacità di suonare/danzare in ensemble, ascolto attivo, coordinazione con altri, sincronia e collaborazione artistica.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Conservatorio, Accademie di Danza, DAMS, Musicoterapia, Insegnamento artistico</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-scientifico')">
+                    <h3>🔬 Liceo Scientifico</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-scientifico" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🧩 Problem Solving Analitico</h4>
+                            <p>Capacità di scomporre problemi complessi, trovare soluzioni logiche, applicare strategie risolutive efficaci.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🔢 Ragionamento Logico-Matematico</h4>
+                            <p>Padronanza del calcolo, dell'algebra, della geometria. Capacità di astrazione e formalizzazione di problemi.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🔬 Applicazione del Metodo Scientifico</h4>
+                            <p>Formulare ipotesi, progettare esperimenti, raccogliere dati, trarre conclusioni basate su evidenze. Rigore metodologico.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📊 Analisi Dati e Modelli</h4>
+                            <p>Capacità di interpretare grafici, elaborare dati, costruire modelli matematici della realtà, pensiero quantitativo.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Ingegneria, Medicina, Matematica, Fisica, Informatica, Chimica, Biologia</p>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-top: 50px; margin-bottom: 30px; text-align: center;">💻 ISTITUTI TECNICI</h3>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-informatica')">
+                    <h3>💻 Informatica e Telecomunicazioni</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-informatica" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>💻 Programmazione Software</h4>
+                            <p>Padronanza di linguaggi di programmazione (Java, Python, C++, JavaScript), sviluppo di applicazioni, debugging, test.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🌐 Gestione di Reti Informatiche</h4>
+                            <p>Configurazione router e switch, protocolli di rete, architetture client-server, troubleshooting di rete.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📱 Sviluppo di Sistemi e App</h4>
+                            <p>Creazione di applicazioni web e mobile, gestione database, API, interfacce utente, full-stack development.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🔒 Cybersecurity Fundamentals</h4>
+                            <p>Principi di sicurezza informatica, crittografia, protezione dati, riconoscimento vulnerabilità, best practices IT.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Programmatore, Sviluppatore web/app, Sistemista, Ingegneria Informatica</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-turismo')">
+                    <h3>✈️ Turismo</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-turismo" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🏨 Gestione Imprese Turistiche</h4>
+                            <p>Conoscenza della gestione alberghiera, tour operator, agenzie viaggio. Competenze amministrative e organizzative.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📍 Marketing Territoriale e Digitale</h4>
+                            <p>Promozione delle destinazioni turistiche, social media marketing, creazione di itinerari, valorizzazione patrimonio culturale.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🗣️ Competenza in 3 Lingue Straniere</h4>
+                            <p>Comunicazione professionale in inglese e altre due lingue (francese, tedesco, spagnolo), terminologia turistica.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>⚖️ Legislazione di Settore</h4>
+                            <p>Conoscenza normative turistiche, contrattualistica, diritti dei viaggiatori, regolamentazione del settore.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Operatore turistico, Guida, Event planner, Scienze del Turismo, Hospitality Management</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-afm')">
+                    <h3>💼 Amministrazione, Finanza e Marketing</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-afm" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>📊 Economia Aziendale</h4>
+                            <p>Contabilità, bilancio, gestione aziendale, analisi costi/ricavi, controllo di gestione.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>⚖️ Diritto ed Economia</h4>
+                            <p>Normativa civilistica, fiscale, commerciale. Comprensione dei fenomeni economici e dei mercati.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🌐 Competenze Digitali Aziendali</h4>
+                            <p>Uso di software gestionali, Excel avanzato, ERP, strumenti di business intelligence.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🗣️ Due Lingue Straniere</h4>
+                            <p>Comunicazione business in inglese e seconda lingua, corrispondenza commerciale internazionale.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Ragioniere, Contabile, Economia, Commercialista, Amministrazione aziendale</p>
+                </div>
+
+                <h3 style="color: #f093fb; font-size: 2em; margin-top: 50px; margin-bottom: 30px; text-align: center;">🔧 ISTITUTI PROFESSIONALI</h3>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-enogastronomia')">
+                    <h3>🍽️ Enogastronomia e Ospitalità</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-enogastronomia" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>👨‍🍳 Tecniche di Cucina e Pasticceria</h4>
+                            <p>Preparazione, cottura, impiattamento, tecniche avanzate, pasticceria, conoscenza materie prime, cucina internazionale.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🍷 Servizio Sala e Bar</h4>
+                            <p>Tecniche di servizio professionale, enologia, sommellerie, bartending, gestione sala, accoglienza cliente.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🔬 Scienze dell'Alimentazione</h4>
+                            <p>Nutrizione, dietetica, HACCP, sicurezza alimentare, igiene, conservazione alimenti, allergeni.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>💼 Gestione dell'Impresa Ristorativa</h4>
+                            <p>Amministrazione, controllo costi, gestione fornitori, marketing ristorazione, organizzazione eventi.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Chef, Pasticciere, Maître, Receptionist, Scienze Alimentari, Dietistica</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-manutenzione')">
+                    <h3>🔧 Manutenzione e Assistenza Tecnica</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-manutenzione" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>🔍 Diagnostica di Guasti</h4>
+                            <p>Identificazione problemi, uso strumenti di misura, analisi logica, troubleshooting sistematico.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>⚙️ Manutenzione Meccanica ed Elettronica</h4>
+                            <p>Riparazione macchinari, sostituzione componenti, manutenzione preventiva, uso utensili specializzati.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🏗️ Installazione di Impianti</h4>
+                            <p>Installazione impianti elettrici, idraulici, termici, climatizzazione, collaudo, certificazione.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>📐 Lettura del Disegno Tecnico</h4>
+                            <p>Interpretazione schemi elettrici, disegni meccanici, planimetrie, normative tecniche.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> Tecnico manutentore, Installatore, ITS, Ingegneria Meccanica/Elettronica</p>
+                </div>
+
+                <div class="competenza-card" onclick="toggleDetails('comp-servizi-sociali')">
+                    <h3>🤝 Servizi Sanità e Assistenza Sociale</h3>
+                    <p>Clicca per vedere le competenze</p>
+                </div>
+                <div id="comp-servizi-sociali" class="school-details">
+                    <h4>🎯 Abilità Sviluppate</h4>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>❤️ Assistenza alla Persona</h4>
+                            <p>Tecniche di cura, igiene, mobilizzazione, assistenza quotidiana, supporto emotivo, comunicazione con pazienti.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🏥 Igiene e Cultura Medico-Sanitaria</h4>
+                            <p>Protocolli sanitari, primo soccorso, prevenzione infezioni, conoscenza patologie, somministrazione farmaci base.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>🎨 Metodologie Operative Sociali</h4>
+                            <p>Animazione socio-educativa, progettazione interventi sociali, attività ricreative, relazione d'aiuto.</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>💬 Comunicazione Empatica</h4>
+                            <p>Ascolto attivo, gestione relazioni difficili, mediazione, lavoro con famiglie e équipe multidisciplinari.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>💼 Si collega a:</strong> OSS, Assistente sociale, Infermieristica, Educazione Professionale, Fisioterapia</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); padding: 30px; border-radius: 15px; margin-top: 50px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🚀 Come Valorizzare le Tue Competenze</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Portfolio/CV:</strong> Documenta progetti, esperienze e competenze acquisite</li>
+                        <li><strong>Certificazioni:</strong> Ottieni certificazioni riconosciute nelle tue aree di competenza</li>
+                        <li><strong>Progetti Personali:</strong> Crea progetti che dimostrano le tue abilità pratiche</li>
+                        <li><strong>Stage e Tirocini:</strong> Applica le competenze in contesti reali di lavoro</li>
+                        <li><strong>Competenze Trasversali:</strong> Sviluppa soft skills attraverso attività extrascolastiche</li>
+                        <li><strong>Apprendimento Continuo:</strong> Aggiorna costantemente le tue competenze con corsi online e workshop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ PAGE -->
+        <div id="quiz" class="page">
+            <button class="back-btn" onclick="navigateTo('home')">← Torna alla Home</button>
+            <div class="quiz-container">
+                <div id="quiz-intro" style="display: block;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">❓ Quiz di Orientamento</h2>
+                    <p style="font-size: 1.2em; margin-bottom: 30px;">Rispondi a queste domande per scoprire quale percorso di studi è più adatto a te! Il test analizza i tuoi interessi, attitudini e aspirazioni.</p>
+                    
+                    <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                        <h3 style="color: #667eea; margin-bottom: 15px;">📋 Come Funziona</h3>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>Il quiz contiene <strong>10 domande</strong> sulle tue preferenze e inclinazioni</li>
+                            <li>Rispondi in modo <strong>sincero</strong>, non c'è una risposta giusta o sbagliata</li>
+                            <li>Al termine riceverai <strong>3 percorsi consigliati</strong> personalizzati per te</li>
+                            <li>Il test dura circa <strong>3-5 minuti</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn" onclick="startQuiz()" style="width: 100%; font-size: 1.5em; padding: 30px;">
+                        🚀 Inizia il Quiz
+                    </button>
+                </div>
+
+                <div id="quiz-questions" style="display: none;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                        <h3 style="margin: 0; color: white;">Domanda <span id="current-question">1</span> di 10</h3>
+                        <div style="background: rgba(255,255,255,0.3); height: 10px; border-radius: 5px; margin-top: 15px;">
+                            <div id="progress-bar" style="background: white; height: 100%; border-radius: 5px; width: 10%; transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+
+                    <h3 id="question-text" style="color: #667eea; font-size: 1.8em; margin-bottom: 30px;"></h3>
+                    
+                    <div id="options-container"></div>
+                </div>
+
+                <div id="quiz-result" style="display: none;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">🎯 I Tuoi Risultati</h2>
+                    
+                    <div class="result-box">
+                        <h3 style="color: #667eea; font-size: 2em; margin-bottom: 20px;">🏆 Percorsi Consigliati per Te</h3>
+                        <div id="recommendations"></div>
+                    </div>
+
+                    <div style="margin-top: 30px; text-align: center;">
+                        <button class="btn" onclick="restartQuiz()" style="margin-right: 15px;">
+                            🔄 Rifai il Quiz
+                        </button>
+                        <button class="btn" onclick="navigateTo('schools')" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">
+                            📚 Esplora le Scuole
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                if (element.style.display === 'none' || element.style.display === '') {
+                    element.style.display = 'block';
+                } else {
+                    element.style.display = 'none';
+                }
+            }
+        }
+
+        // QUIZ LOGIC
+        const quizQuestions = [
+            {
+                question: "Cosa ti piace fare nel tempo libero?",
+                options: [
+                    { text: "Disegnare, dipingere o creare cose con le mani", scores: { artistico: 3, design: 2, manutenzione: 1 } },
+                    { text: "Leggere libri, scrivere o studiare storia", scores: { classico: 3, scienze_umane: 2, lettere: 2 } },
+                    { text: "Risolvere problemi matematici o enigmi logici", scores: { scientifico: 3, informatica: 2, matematica: 2 } },
+                    { text: "Imparare nuove lingue o culture straniere", scores: { linguistico: 3, turismo: 2, relazioni: 1 } },
+                    { text: "Suonare, cantare o danzare", scores: { musicale: 3, artistico: 1 } },
+                    { text: "Aiutare gli altri e fare volontariato", scores: { scienze_umane: 3, servizi_sociali: 2, medicina: 1 } }
+                ]
+            },
+            {
+                question: "Quale materia scolastica preferisci?",
+                options: [
+                    { text: "Arte e Disegno", scores: { artistico: 3, design: 2 } },
+                    { text: "Italiano, Storia o Filosofia", scores: { classico: 3, scienze_umane: 2 } },
+                    { text: "Matematica e Fisica", scores: { scientifico: 3, ingegneria: 2 } },
+                    { text: "Lingue Straniere", scores: { linguistico: 3, turismo: 2 } },
+                    { text: "Scienze (Biologia, Chimica)", scores: { scientifico: 2, medicina: 3, chimica: 2 } },
+                    { text: "Informatica o Tecnologia", scores: { informatica: 3, scientifico: 1 } }
+                ]
+            },
+            {
+                question: "Come ti descriveresti?",
+                options: [
+                    { text: "Creativo/a e con molta fantasia", scores: { artistico: 3, musicale: 2, design: 2 } },
+                    { text: "Riflessivo/a e amante della lettura", scores: { classico: 3, scienze_umane: 2 } },
+                    { text: "Logico/a e razionale", scores: { scientifico: 3, matematica: 2, informatica: 2 } },
+                    { text: "Comunicativo/a e aperto/a al mondo", scores: { linguistico: 3, turismo: 2, comunicazione: 2 } },
+                    { text: "Empatico/a e attento/a agli altri", scores: { scienze_umane: 3, servizi_sociali: 2, medicina: 1 } },
+                    { text: "Pratico/a e abile con le mani", scores: { manutenzione: 3, enogastronomia: 2, industria: 2 } }
+                ]
+            },
+            {
+                question: "Quale professione ti attrae di più?",
+                options: [
+                    { text: "Designer, Architetto, Artista", scores: { artistico: 3, design: 2 } },
+                    { text: "Avvocato, Giornalista, Scrittore", scores: { classico: 3, giurisprudenza: 2, lettere: 2 } },
+                    { text: "Ingegnere, Programmatore, Scienziato", scores: { scientifico: 3, informatica: 3, ingegneria: 3 } },
+                    { text: "Interprete, Traduttore, Guida Turistica", scores: { linguistico: 3, turismo: 2 } },
+                    { text: "Medico, Psicologo, Assistente Sociale", scores: { medicina: 3, scienze_umane: 2, servizi_sociali: 2 } },
+                    { text: "Chef, Meccanico, Artigiano", scores: { enogastronomia: 3, manutenzione: 2, industria: 2 } }
+                ]
+            },
+            {
+                question: "Preferisci lavorare...",
+                options: [
+                    { text: "In modo autonomo e creativo", scores: { artistico: 2, classico: 2, musicale: 2 } },
+                    { text: "In team su progetti pratici", scores: { informatica: 2, manutenzione: 2, ingegneria: 2 } },
+                    { text: "A contatto con le persone", scores: { scienze_umane: 3, turismo: 2, servizi_sociali: 3 } },
+                    { text: "Con precisione su dettagli tecnici", scores: { scientifico: 2, informatica: 2, afm: 2 } }
+                ]
+            },
+            {
+                question: "Qual è il tuo punto di forza?",
+                options: [
+                    { text: "Immaginazione e creatività", scores: { artistico: 3, musicale: 2, design: 2 } },
+                    { text: "Capacità di analisi e riflessione", scores: { classico: 3, scientifico: 2, giurisprudenza: 2 } },
+                    { text: "Problem-solving e logica", scores: { scientifico: 3, informatica: 3, matematica: 3 } },
+                    { text: "Comunicazione e empatia", scores: { linguistico: 2, scienze_umane: 3, servizi_sociali: 3 } },
+                    { text: "Manualità e praticità", scores: { manutenzione: 3, enogastronomia: 2, industria: 2 } },
+                    { text: "Organizzazione e gestione", scores: { afm: 3, turismo: 2, economia: 2 } }
+                ]
+            },
+            {
+                question: "Dopo il diploma vorresti...",
+                options: [
+                    { text: "Andare all'università e specializzarti", scores: { classico: 2, scientifico: 2, medicina: 2, ingegneria: 2 } },
+                    { text: "Iniziare subito a lavorare", scores: { enogastronomia: 3, manutenzione: 3, industria: 2 } },
+                    { text: "Frequentare accademie artistiche", scores: { artistico: 3, musicale: 3, design: 2 } },
+                    { text: "Fare esperienze all'estero", scores: { linguistico: 3, turismo: 2, relazioni: 2 } }
+                ]
+            },
+            {
+                question: "Come studi meglio?",
+                options: [
+                    { text: "Leggendo e prendendo appunti", scores: { classico: 2, scienze_umane: 2, lettere: 2 } },
+                    { text: "Facendo esercizi e problemi", scores: { scientifico: 3, matematica: 3, informatica: 2 } },
+                    { text: "Con attività pratiche e laboratori", scores: { artistico: 2, manutenzione: 3, enogastronomia: 2 } },
+                    { text: "In gruppo discutendo e confrontandomi", scores: { scienze_umane: 2, linguistico: 2, comunicazione: 2 } }
+                ]
+            },
+            {
+                question: "Cosa ti affascina di più?",
+                options: [
+                    { text: "L'arte, la bellezza e l'estetica", scores: { artistico: 3, design: 2, musicale: 2 } },
+                    { text: "La storia, la filosofia e le idee", scores: { classico: 3, scienze_umane: 2, giurisprudenza: 1 } },
+                    { text: "La tecnologia e l'innovazione", scores: { informatica: 3, scientifico: 2, ingegneria: 3 } },
+                    { text: "Le culture e le lingue del mondo", scores: { linguistico: 3, turismo: 2, relazioni: 2 } },
+                    { text: "Il benessere e la cura delle persone", scores: { medicina: 3, servizi_sociali: 2, scienze_umane: 2 } },
+                    { text: "Il cibo, l'ospitalità e la convivialità", scores: { enogastronomia: 3, turismo: 1 } }
+                ]
+            },
+            {
+                question: "Quale ambiente di lavoro preferiresti?",
+                options: [
+                    { text: "Studio creativo o atelier", scores: { artistico: 3, design: 2, musicale: 2 } },
+                    { text: "Ufficio o studio professionale", scores: { afm: 2, giurisprudenza: 2, economia: 2 } },
+                    { text: "Laboratorio scientifico o tecnologico", scores: { scientifico: 2, informatica: 2, chimica: 2, ingegneria: 2 } },
+                    { text: "All'aria aperta o in movimento", scores: { turismo: 3, agricoltura: 2 } },
+                    { text: "Ospedale o struttura sanitaria", scores: { medicina: 3, servizi_sociali: 2 } },
+                    { text: "Cucina, ristorante o hotel", scores: { enogastronomia: 3, turismo: 2 } },
+                    { text: "Officina o cantiere", scores: { manutenzione: 3, costruzioni: 2, industria: 2 } }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let scores = {};
+
+        function startQuiz() {
+            document.getElementById('quiz-intro').style.display = 'none';
+            document.getElementById('quiz-questions').style.display = 'block';
+            currentQuestion = 0;
+            scores = {};
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizQuestions[currentQuestion];
+            document.getElementById('current-question').textContent = currentQuestion + 1;
+            document.getElementById('progress-bar').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option.text;
+                optionDiv.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function selectOption(optionIndex) {
+            const question = quizQuestions[currentQuestion];
+            const selectedOption = question.options[optionIndex];
+            
+            // Add scores
+            for (let key in selectedOption.scores) {
+                if (!scores[key]) scores[key] = 0;
+                scores[key] += selectedOption.scores[key];
+            }
+            
+            currentQuestion++;
+            
+            if (currentQuestion < quizQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-questions').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            
+            // Sort scores
+            const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            const top3 = sortedScores.slice(0, 3);
+            
+            const recommendations = document.getElementById('recommendations');
+            recommendations.innerHTML = '';
+            
+            const schoolInfo = {
+                artistico: { name: '🎨 Liceo Artistico', desc: 'Per chi ha creatività e passione per l\'arte e il design', link: 'licei' },
+                classico: { name: '🏛️ Liceo Classico', desc: 'Per chi ama la cultura umanistica e il pensiero critico', link: 'licei' },
+                scientifico: { name: '🔬 Liceo Scientifico', desc: 'Per chi è affascinato da matematica, fisica e scienze', link: 'licei' },
+                linguistico: { name: '🌍 Liceo Linguistico', desc: 'Per chi vuole padroneggiare le lingue straniere', link: 'licei' },
+                scienze_umane: { name: '👥 Liceo Scienze Umane', desc: 'Per chi vuole comprendere mente umana e società', link: 'licei' },
+                musicale: { name: '🎵 Liceo Musicale', desc: 'Per chi vuole trasformare la passione per musica/danza in professione', link: 'licei' },
+                informatica: { name: '💻 Istituto Tecnico Informatica', desc: 'Per chi vuole programmare e lavorare nel digitale', link: 'tecnici' },
+                turismo: { name: '✈️ Istituto Tecnico Turismo', desc: 'Per chi ama viaggiare e valorizzare il territorio', link: 'tecnici' },
+                afm: { name: '💼 Istituto Tecnico AFM', desc: 'Per chi è interessato a economia e gestione aziendale', link: 'tecnici' },
+                enogastronomia: { name: '🍽️ Istituto Prof. Enogastronomia', desc: 'Per chi vuole lavorare in cucina e ristorazione', link: 'professionali' },
+                manutenzione: { name: '🔧 Istituto Prof. Manutenzione', desc: 'Per chi ama la meccanica e riparare le cose', link: 'professionali' },
+                servizi_sociali: { name: '🤝 Istituto Prof. Servizi Sociali', desc: 'Per chi vuole aiutare e prendersi cura degli altri', link: 'professionali' },
+                medicina: { name: '🏥 Area Medico-Sanitaria', desc: 'Considera Liceo Scientifico per poi studiare Medicina', link: 'licei' },
+                ingegneria: { name: '⚙️ Area Ingegneria', desc: 'Considera Liceo Scientifico o Tecnico per poi studiare Ingegneria', link: 'licei' },
+                design: { name: '🎨 Area Design', desc: 'Considera Liceo Artistico per poi specializzarti in Design', link: 'licei' },
+                matematica: { name: '📊 Area Matematica-Statistica', desc: 'Considera Liceo Scientifico per studi in matematica e data science', link: 'licei' },
+                giurisprudenza: { name: '⚖️ Area Giuridica', desc: 'Considera Liceo Classico o Scienze Umane per Giurisprudenza', link: 'licei' },
+                economia: { name: '💼 Area Economica', desc: 'Considera Tecnico AFM o Scientifico per studi in Economia', link: 'tecnici' },
+                lettere: { name: '📚 Area Umanistica', desc: 'Considera Liceo Classico o Scienze Umane per Lettere e Filosofia', link: 'licei' },
+                comunicazione: { name: '📢 Area Comunicazione', desc: 'Considera Liceo Linguistico o Classico per Comunicazione', link: 'licei' },
+                chimica: { name: '🧪 Area Chimica', desc: 'Considera Liceo Scientifico o Tecnico Chimica', link: 'licei' },
+                costruzioni: { name: '🏗️ Area Costruzioni', desc: 'Considera Tecnico Costruzioni Ambiente e Territorio', link: 'tecnici' },
+                industria: { name: '⚙️ Area Industriale', desc: 'Considera Professionale Industria e Artigianato', link: 'professionali' },
+                agricoltura: { name: '🌱 Area Agraria', desc: 'Considera Tecnico o Professionale Agraria', link: 'tecnici' },
+                relazioni: { name: '🌐 Area Internazionale', desc: 'Considera Liceo Linguistico per Relazioni Internazionali', link: 'licei' }
+            };
+            
+            top3.forEach((item, index) => {
+                const [key, score] = item;
+                const info = schoolInfo[key];
+                
+                if (info) {
+                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉';
+                    const recDiv = document.createElement('div');
+                    recDiv.style.cssText = 'background: white; padding: 25px; margin: 20px 0; border-radius: 15px; border-left: 5px solid #667eea;';
+                    recDiv.innerHTML = `
+                        <h3 style="color: #667eea; font-size: 1.5em; margin-bottom: 10px;">${medal} ${info.name}</h3>
+                        <p style="font-size: 1.1em; margin-bottom: 15px;">${info.desc}</p>
+                        <p style="color: #764ba2;"><strong>Match:</strong> ${Math.round(score / sortedScores[0][1] * 100)}%</p>
+                        <button class="btn" onclick="navigateTo('${info.link}')" style="margin-top: 15px; font-size: 1em; padding: 12px 25px;">
+                            Scopri di più →
+                        </button>
+                    `;
+                    recommendations.appendChild(recDiv);
+                }
+            });
+            
+            // Add motivational message
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = 'background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 25px; margin-top: 30px; border-radius: 15px; text-align: center;';
+            messageDiv.innerHTML = `
+                <h3 style="color: #667eea; margin-bottom: 15px;">💡 Ricorda</h3>
+                <p style="line-height: 1.8;">Questi sono solo suggerimenti basati sulle tue risposte! La scelta finale dipende da te, dalle tue passioni e dai tuoi obiettivi. Prenditi il tempo per esplorare tutte le opzioni e parlane con famiglia e insegnanti.</p>
+            `;
+            recommendations.appendChild(messageDiv);
+        }
+
+        function restartQuiz() {
+            document.getElementById('quiz-result').style.display = 'none';
+            document.getElementById('quiz-intro').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
